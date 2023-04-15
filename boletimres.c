@@ -3,8 +3,8 @@
 #include <locale.h>
 
 struct verificacao{ //tentativa do user em fazer login
-    char user_ver[30];
-    char pass_ver[40];
+    char verificacaoUser[30];
+    char verificacaoPass[40];
 };
 struct cadastro{ //login cadastrado do user
     char user[30];
@@ -23,53 +23,54 @@ int main(){
     struct boletim b;
     struct verificacao v;
     
-    int cad_ver = 0; //verificação inicia falsa
+    int verificacaoCadastro = 0; //verificação inicia falsa
 
     int fim = 1; //variavel de parada do algoritmo
     int i; //contagem de for para as notas
-    int fazerCad = 0;
-    int cadastramento = 1;
+    int fazerCadastro = 0;
     int tentativas;
 
     while(fim == 1){
+        int cadastramento = 1;
         printf("Fazer login ou cadastro\n");
         printf("1 - Login    2 - Cadastro\n");
-        scanf("%d", &cad_ver);
+        scanf("%d", &verificacaoCadastro);
         while(cadastramento == 1){
-            if(cad_ver == 2){
+            if(verificacaoCadastro == 2){
                 printf("\nDigite o nome de usuario para cadastro: ");
                 scanf("%s", c.user);
                 printf("Digite a senha: ");
                 scanf("%s", c.pass);
                 printf("\n---- Usuario cadastrado ----\n");
-                cad_ver = 1;
+                verificacaoCadastro = 1;
             }
             else{ //verificação do cadastro
                 int login_ver = 0; //verificação do login
                 if(login_ver != 1){
                     for(tentativas = 1; tentativas <= 3; tentativas++){
                         printf("\nUsuario: ");
-                        scanf("%s", v.user_ver);
+                        scanf("%s", v.verificacaoUser);
                         printf("Senha: ");
-                        scanf("%s", v.pass_ver);
-                        if((strcmp(v.user_ver, c.user) == 0) && (strcmp(v.pass_ver, c.pass) == 0)){ //usuario fez login
+                        scanf("%s", v.verificacaoPass);
+                        if((strcmp(v.verificacaoUser, c.user) == 0) && (strcmp(v.verificacaoPass, c.pass) == 0)){ //usuario fez login
                             printf("\n---- Login autorizado ----\n");
                             login_ver = 1;
                             cadastramento = 0;
                             tentativas = 4;
                         }else{ //usuario errou ou não tem cadastro
-                            printf("\nUsuario ou Senha incorreto(s)\n");
+                            printf("\nUsuario ou Senha incorreto(s), tente novamente\n");
                             login_ver = 0;
                         }
                     }
                     if(login_ver == 0){
                         printf("\nDeseja fazer cadastro?\n");
                         printf("1 - Sim    2 - Não\n");
-                        scanf("%d", &fazerCad);
-                        if(fazerCad == 1){ //redirecionando para realização do cadastro
-                            cad_ver = 2;
+                        scanf("%d", &fazerCadastro);
+                        if(fazerCadastro == 1){ //redirecionando para realização do cadastro
+                            verificacaoCadastro = 2;
                             login_ver = 1;
                         }else{
+                            printf("\n---- SAINDO DO SISTEMA ----");
                             return 0; //fim do algoritmo
                         }
                     }    
